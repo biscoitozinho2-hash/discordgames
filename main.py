@@ -79,9 +79,21 @@ def load_games():
 
 def build_activity(entry: dict) -> discord.Activity:
     activity_type = ACTIVITY_TYPE_MAP[entry["type"].lower()]
+    
+    # جلب رقم تعريف اللعبة إن وُجد
+    app_id = None
+    if "app_id" in entry:
+        app_id = int(entry["app_id"])
+        
     if activity_type == discord.ActivityType.streaming:
         return discord.Streaming(name=entry["name"], url=entry["url"])
-    return discord.Activity(type=activity_type, name=entry["name"])
+        
+    return discord.Activity(
+        type=activity_type, 
+        name=entry["name"],
+        application_id=app_id
+    )
+
 
 
 # ---------------------------------------------------------------------------
