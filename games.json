@@ -1,7 +1,7 @@
 [
-  { "type": "playing", "name": "Minecraft", "duration": 60 },
-  { "type": "listening", "name": "Lofi Hip Hop Radio", "duration": 45 },
-  { "type": "watching", "name": "the server logs", "duration": 30 },
-  { "type": "playing", "name": "Terraria", "duration": 90 },
-  { "type": "competing", "name": "a coding challenge", "duration": 60 }
+  { "type": "playing", "name": "Minecraft", "duration": 60, "app_id": 438122468626759680 },
+  { "type": "playing", "name": "Grand Theft Auto V", "duration": 90, "app_id": 356888638706319361 },
+  { "type": "playing", "name": "Visual Studio Code", "duration": 45, "app_id": 383226320970055681 },
+  { "type": "listening", "name": "Spotify", "duration": 30 },
+  { "type": "playing", "name": "Terraria", "duration": 60, "app_id": 438121966035927060 }
 ]
