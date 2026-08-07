@@ -9,6 +9,8 @@ import discord
 from discord.ext import tasks
 from flask import Flask
 
+import game_catalog
+
 # ---------------------------------------------------------------------------
 # Config
 # ---------------------------------------------------------------------------
@@ -60,6 +62,10 @@ def start_keep_alive():
 # ---------------------------------------------------------------------------
 # Games list loading
 # ---------------------------------------------------------------------------
+# Types for which it makes sense to auto-look-up an official app_id/icon.
+_AUTO_RESOLVABLE_TYPES = {"playing", "watching", "competing"}
+
+
 def load_games():
     with open(GAMES_FILE, "r", encoding="utf-8") as f:
         games = json.load(f)
@@ -70,10 +76,28 @@ def load_games():
     for entry in games:
         if "type" not in entry or "name" not in entry or "duration" not in entry:
             raise ValueError(f"Invalid game entry, missing required keys: {entry}")
-        if entry["type"].lower() not in ACTIVITY_TYPE_MAP:
+        activity_type = entry["type"].lower()
+        if activity_type not in ACTIVITY_TYPE_MAP:
             raise ValueError(f"Unknown activity type '{entry['type']}' in entry: {entry}")
-        if entry["type"].lower() == "streaming" and "url" not in entry:
+        if activity_type == "streaming" and "url" not in entry:
             raise ValueError(f"Streaming activity requires a 'url' key: {entry}")
+
+        # --- Automatic app_id / image resolution -------------------------
+        # If the entry doesn't already have a manually-set app_id, look it
+        # up in Discord's own public catalog of detectable games. This is
+        # the same name+icon every Discord user sees for that game — no
+        # Developer Portal, no manual copy-pasting of asset keys.
+        if activity_type in _AUTO_RESOLVABLE_TYPES and "app_id" not in entry:
+            resolved_id = game_catalog.resolve(entry["name"])
+            if resolved_id:
+                entry["app_id"] = resolved_id
+            else:
+                log.warning(
+                    f"'{entry['name']}' not found in Discord's detectable-games catalog "
+                    f"— it will show as plain text with no cover image. "
+                    f"If it's a real game, check the spelling; otherwise set 'app_id' "
+                    f"manually in games.json for custom/unlisted entries."
+                )
 
     return games
 
@@ -144,8 +168,11 @@ _cycle_task_lock = asyncio.Lock()
 @client.event
 async def on_ready():
     log.info(f"Logged in as {client.user} (ID: {client.user.id})")
+    await game_catalog.ensure_loaded()  # load Discord's detectable-games catalog once
     if not presence_cycle.is_running():
         presence_cycle.start()
+    if not refresh_catalog.is_running():
+        refresh_catalog.start()
 
 
 @client.event
@@ -223,6 +250,16 @@ async def presence_cycle_error(error):
     await asyncio.sleep(10)
     if not presence_cycle.is_running():
         presence_cycle.start()
+
+
+# ---------------------------------------------------------------------------
+# Periodically refresh Discord's detectable-games catalog so newly added
+# games (or ones that weren't found on first boot) get picked up without
+# needing a restart.
+# ---------------------------------------------------------------------------
+@tasks.loop(hours=24)
+async def refresh_catalog():
+    await game_catalog.ensure_loaded(force=True)
 
 
 # ---------------------------------------------------------------------------
