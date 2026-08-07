@@ -1,0 +1,95 @@
+[
+  {
+    "type": "playing",
+    "name": "Minecraft",
+    "duration": 10800,
+    "details": "Playing Multiplayer",
+    "state": "Hypixel Bedwars"
+  },
+  {
+    "type": "playing",
+    "name": "Roblox",
+    "duration": 7200,
+    "details": "In Game",
+    "state": "Exploring"
+  },
+  {
+    "type": "playing",
+    "name": "Grand Theft Auto V",
+    "duration": 3600,
+    "details": "FiveM Server",
+    "state": "Justice-fivem-server"
+  },
+  {
+    "type": "playing",
+    "name": "Fuga: Melodies of Steel",
+    "duration": 1800,
+    "details": "Story Mode",
+    "state": "Chapter 3"
+  },
+  {
+    "type": "playing",
+    "name": "Death's Door",
+    "duration": 1800,
+    "details": "Exploring",
+    "state": "Fighting Boss"
+  },
+  {
+    "type": "playing",
+    "name": "Call of Duty: Warzone",
+    "duration": 3600,
+    "details": "Battle Royale",
+    "state": "In a Match (6 Kills)"
+  },
+  {
+    "type": "playing",
+    "name": "Elden Ring",
+    "duration": 7200,
+    "details": "Shadow of the Erdtree",
+    "state": "Exploring the Lands Between"
+  },
+  {
+    "type": "playing",
+    "name": "Red Dead Redemption 2",
+    "duration": 5400,
+    "details": "Story Mode",
+    "state": "Riding in New Hanover"
+  },
+  {
+    "type": "playing",
+    "name": "Cyberpunk 2077",
+    "duration": 3600,
+    "details": "Night City",
+    "state": "Doing Merc Gigs"
+  },
+  {
+    "type": "playing",
+    "name": "Ghost of Tsushima",
+    "duration": 7200,
+    "details": "Director's Cut",
+    "state": "Liberating Tsushima"
+  },
+  {
+    "type": "playing",
+    "name": "Baldur's Gate 3",
+    "duration": 5400,
+    "details": "Act III",
+    "state": "Honour Mode"
+  },
+  {
+    "type": "playing",
+    "name": "Visual Studio Code",
+    "duration": 3600,
+    "details": "Developing Python Telegram Bot",
+    "state": "Workspace: Role-bot"
+  },
+  {
+    "type": "listening",
+    "name": "Spotify",
+    "duration": 1800,
+    "song_title": "Starboy",
+    "artist": "The Weeknd",
+    "album": "Starboy",
+    "track_id": "7MXVkk9YMqqcsZgalWAMHQ"
+  }
+]
