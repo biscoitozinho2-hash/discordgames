@@ -87,9 +87,8 @@ def build_activity(entry: dict) -> discord.Activity:
 # ---------------------------------------------------------------------------
 # Discord client
 # ---------------------------------------------------------------------------
-intents = discord.Intents.default()
+client = discord.Client()
 
-client = discord.Client(intents=intents)
 
 # Shared state for the presence cycle
 _games = []
