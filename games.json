@@ -1,0 +1,7 @@
+[
+  { "type": "playing", "name": "Minecraft", "duration": 60 },
+  { "type": "listening", "name": "Lofi Hip Hop Radio", "duration": 45 },
+  { "type": "watching", "name": "the server logs", "duration": 30 },
+  { "type": "playing", "name": "Terraria", "duration": 90 },
+  { "type": "competing", "name": "a coding challenge", "duration": 60 }
+]
