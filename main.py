@@ -3,6 +3,7 @@ import json
 import asyncio
 import logging
 import threading
+import datetime
 
 import discord
 from discord.ext import tasks
@@ -78,21 +79,53 @@ def load_games():
 
 
 def build_activity(entry: dict) -> discord.Activity:
-    activity_type = ACTIVITY_TYPE_MAP[entry["type"].lower()]
+    activity_type_str = entry["type"].lower()
     
-    # جلب رقم تعريف اللعبة إن وُجد
-    app_id = None
+    # === 1. برمجة سبوتيفاي بشكل حقيقي 100% ===
+    if activity_type_str == "listening" and entry["name"].lower() == "spotify":
+        # حساب وقت البداية والنهاية لظهور شريط الوقت (Progress Bar)
+        start_time = datetime.datetime.utcnow()
+        end_time = start_time + datetime.timedelta(seconds=entry.get("duration", 180))
+        
+        return discord.Spotify(
+            title=entry.get("song_title", "Unknown Song"),
+            artist=entry.get("artist", "Unknown Artist"),
+            album=entry.get("album", "Unknown Album"),
+            track_id=entry.get("track_id", "0"),
+            start=start_time,
+            end=end_time
+        )
+        
+    # === 2. برمجة الألعاب بشكل احترافي مع الصور والتفاصيل ===
+    activity_type = ACTIVITY_TYPE_MAP.get(activity_type_str, discord.ActivityType.playing)
+    
+    kwargs = {
+        "type": activity_type,
+        "name": entry["name"]
+    }
+    
     if "app_id" in entry:
-        app_id = int(entry["app_id"])
+        kwargs["application_id"] = int(entry["app_id"])
+    if "details" in entry:
+        kwargs["details"] = entry["details"]  # السطر الأول تحت اسم اللعبة
+    if "state" in entry:
+        kwargs["state"] = entry["state"]      # السطر الثاني تحت اسم اللعبة
         
+    # إضافة روابط الصور
+    assets = {}
+    if "large_image" in entry:
+        assets["large_image"] = entry["large_image"]
+    if "small_image" in entry:
+        assets["small_image"] = entry["small_image"]
+        
+    if assets:
+        kwargs["assets"] = assets
+
     if activity_type == discord.ActivityType.streaming:
-        return discord.Streaming(name=entry["name"], url=entry["url"])
+        return discord.Streaming(name=entry["name"], url=entry.get("url", "https://twitch.tv/discord"))
         
-    return discord.Activity(
-        type=activity_type, 
-        name=entry["name"],
-        application_id=app_id
-    )
+    return discord.Activity(**kwargs)
+
 
 
 
