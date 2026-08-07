@@ -1,7 +1,15 @@
 [
-  { "type": "playing", "name": "Minecraft", "duration": 60, "app_id": 438122468626759680 },
-  { "type": "playing", "name": "Grand Theft Auto V", "duration": 90, "app_id": 356888638706319361 },
-  { "type": "playing", "name": "Visual Studio Code", "duration": 45, "app_id": 383226320970055681 },
-  { "type": "listening", "name": "Spotify", "duration": 30 },
-  { "type": "playing", "name": "Terraria", "duration": 60, "app_id": 438121966035927060 }
+  { "type": "playing", "name": "Minecraft", "duration": 10800, "app_id": 438122468626759680 },
+  { "type": "playing", "name": "Roblox", "duration": 7200, "app_id": 438122015562153994 },
+  { "type": "playing", "name": "Grand Theft Auto V", "duration": 3600, "app_id": 356888638706319361 },
+  { "type": "playing", "name": "Fuga: Melodies of Steel", "duration": 1800 },
+  { "type": "playing", "name": "Death's Door", "duration": 1800 },
+  { "type": "playing", "name": "Call of Duty: Warzone", "duration": 3600, "app_id": 689139598858321940 },
+  { "type": "playing", "name": "Elden Ring", "duration": 7200, "app_id": 926577317789466645 },
+  { "type": "playing", "name": "Red Dead Redemption 2", "duration": 5400, "app_id": 466696235124785152 },
+  { "type": "playing", "name": "Cyberpunk 2077", "duration": 3600, "app_id": 790432360520286268 },
+  { "type": "playing", "name": "Ghost of Tsushima", "duration": 7200, "app_id": 1202830844782674011 },
+  { "type": "playing", "name": "Baldur's Gate 3", "duration": 5400, "app_id": 704381222416416809 },
+  { "type": "playing", "name": "Visual Studio Code", "duration": 3600, "app_id": 383226320970055681 },
+  { "type": "listening", "name": "Spotify", "duration": 1800, "app_id": 356869150742183936 }
 ]
